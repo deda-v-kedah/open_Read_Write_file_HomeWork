@@ -20,7 +20,6 @@ def print_recipe(document):
 
 
 
-
 def get_shop_list_by_dishes(dishes, person_count):
     shop_dict = {}
     with open('recipes.txt', 'rt', encoding='utf-8') as file:
@@ -41,6 +40,24 @@ def get_shop_list_by_dishes(dishes, person_count):
                         shop_dict[ing] = {'measure': measure.strip('\n'), 'quantity': str(quantity)}
     pprint.pprint(shop_dict, sort_dicts=False)
 
-get_shop_list_by_dishes(['Омлет', 'Фахитос'], 3)
-#print_recipe("recipes.txt")
+        
 
+def collect_into_one():
+    text_list = []
+    with open('1.txt', 'rt', encoding='utf-8') as file1, open('2.txt', 'rt', encoding='utf-8') as file2, open('3.txt', 'rt', encoding='utf-8') as file3, open('result.txt', 'wt', encoding='utf-8') as write_file:
+        text_list.append( (len(file1.readlines()), '1.txt') )
+        text_list.append( (len(file2.readlines()), '2.txt') )
+        text_list.append( (len(file3.readlines()), '3.txt') )
+
+        sorted_tuple = sorted(text_list)
+        
+        for line in sorted_tuple:
+            write_file.write(line[1]+'\n')
+            write_file.write(str(line[0])+'\n')
+            for i in range(int(line[0])):
+                write_file.write(f'Строка номер {i+1} из файла номер {line[1].strip(".txt")}\n')
+
+
+collect_into_one()
+#get_shop_list_by_dishes(['Омлет', 'Фахитос'], 3)
+#print_recipe("recipes.txt")
